@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>A Little Box of Moments 🎁</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background:linear-gradient(180deg,#ffe4ec,#fff7f2);
+  transition:background 1s ease;
+  overflow-x:hidden;
+  text-align:center;
+  color:#5a3a3a;
+}
+
+/* Floating hearts */
+.heart{
+  position:fixed;
+  top:-20px;
+  font-size:18px;
+  opacity:.6;
+  animation:fall linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(110vh);}
+}
+
+/* Layout */
+.wrapper{
+  padding:70px 20px 100px;
+}
+
+/* Heading */
+h1{
+  font-family:'Pacifico',cursive;
+  font-size:2.6rem;
+  color:#ff7fa1;
+  text-shadow:0 0 12px rgba(255,180,200,.7);
+}
+
+.sub{
+  margin-top:10px;
+  font-size:0.95rem;
+  color:#7a4a4a;
+}
+
+/* Gift */
+.gift{
+  font-size:120px;
+  margin:40px auto 10px;
+  cursor:pointer;
+  animation:float 3s ease-in-out infinite;
+}
+@keyframes float{
+  50%{transform:translateY(-12px);}
+}
+
+.tap{
+  font-style:italic;
+  color:#8a5a5a;
+}
+
+/* Album */
+.album{
+  position:relative;
+  width:300px;
+  height:430px; /* increased */
+  margin:40px auto 0;
+  display:none;
+}
+.text-box{
+  margin-top:18px;
+  position:relative;
+  z-index:5;
+}
+
+
+/* Cards */
+.card{
+  position:absolute;
+  inset:0;
+  background:white;
+  border-radius:22px;
+  box-shadow:0 15px 35px rgba(255,160,190,.35);
+  overflow:hidden;
+  user-select:none;
+  -webkit-user-drag:none;
+  cursor:grab;
+  will-change: transform;
+  transition:transform .4s ease, opacity .4s ease;
+}
+
+.card:active{cursor:grabbing;}
+
+.card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  pointer-events:none;
+}
+
+/* Stack */
+.card:nth-child(1){z-index:8;}
+.card:nth-child(2){transform:translate(10px,10px);z-index:7;}
+.card:nth-child(3){transform:translate(20px,20px);z-index:6;}
+.card:nth-child(4){transform:translate(30px,30px);z-index:5;}
+.card:nth-child(5){transform:translate(40px,40px);z-index:4;}
+.card:nth-child(6){transform:translate(50px,50px);z-index:3;}
+.card:nth-child(7){transform:translate(60px,60px);z-index:2;}
+.card:nth-child(8){transform:translate(70px,70px);z-index:1;}
+
+/* Memory Counter */
+.counter{
+  font-size:0.85rem;
+  color:#8a5a5a;
+  margin-bottom:6px;
+}
+
+/* Caption */
+.caption{
+  font-family:'Pacifico',cursive;
+  font-size:1.2rem;
+  color:#ff7fa1;
+  min-height:48px;
+  animation:fade .6s ease;
+}
+@keyframes fade{
+  from{opacity:0; transform:translateY(6px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* Confetti */
+.confetti{
+  position:absolute;
+  width:8px;
+  height:18px;
+  opacity:.9;
+  animation:confettiFall linear forwards;
+}
+@keyframes confettiFall{
+  to{
+    transform:translateY(420px) rotate(360deg);
+    opacity:0;
+  }
+}
+
+/* End */
+.end{
+  margin-top:70px;
+  font-family:'Pacifico',cursive;
+  font-size:1.3rem;
+  color:#ff7fa1;
+}
+.text-box{
+  margin-top:140px;   /* 👈 pushes text clearly below stack */
+  padding:0 10px;
+}
+
+@media (max-width:600px){
+  .text-box{
+    margin-top:160px; /* 👈 extra safety for mobile */
+  }
+}
+/* Next Page Button */
+.next-btn{
+  position:fixed;
+  left:50%;
+  bottom:-100px; /* start hidden */
+  transform:translateX(-50%);
+  padding:14px 28px;
+  font-size:1.1rem;
+  font-family:'Pacifico', cursive;
+  color:white;
+  background:linear-gradient(135deg,#ff7fa1,#ff4d6d);
+  border:none;
+  border-radius:30px;
+  box-shadow:0 15px 30px rgba(255,120,160,.4);
+  cursor:pointer;
+  opacity:0;
+  z-index:1000;
+}
+
+/* Drop animation */
+.next-btn{
+  position:fixed;
+  left:50%;
+  bottom:50px;              /* FINAL resting position */
+  transform:translate(-50%, -200vh);
+  padding:14px 28px;
+  font-size:1.1rem;
+  font-family:'Pacifico', cursive;
+  color:white;
+  background:linear-gradient(135deg,#ff7fa1,#ff4d6d);
+  border:none;
+  border-radius:30px;
+  box-shadow:0 15px 30px rgba(255,120,160,.4);
+  cursor:pointer;
+  opacity:0;
+  z-index:1000;
+}
+
+.show-btn{
+  opacity:1;
+  animation:dropBounce 1.2s cubic-bezier(.25,.9,.35,1.4) forwards;
+}
+
+@keyframes dropBounce{
+  0%{
+    transform:translate(-50%, -200vh);
+  }
+  70%{
+    transform:translate(-50%, 10px);
+  }
+  85%{
+    transform:translate(-50%, -10px);
+  }
+  100%{
+    transform:translate(-50%, 0); /* STOPS HERE */
+  }
+}
+
+/* ===== MOBILE OPTIMIZATION ===== */
+@media (max-width: 600px){
+
+  body{
+    font-size: 16px;
+  }
+
+  .container{
+    width: 92%;
+    padding: 22px 18px;
+  }
+
+  .title{
+    font-size: 2.2rem;
+  }
+
+  .subtitle{
+    font-size: 1rem;
+  }
+
+  .message-box{
+    height: 300px;
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .signature{
+    font-size: 1.15rem;
+  }
+
+  .footer{
+    font-size: 0.85rem;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+  <h1>A Little Box of Moments 🎀</h1>
+  <p class="sub">Some smiles are meant to be opened slowly 💗</p>
+
+  <div class="gift" onclick="openGift()">🎁</div>
+  <div class="tap">Tap once… gently ✨</div>
+
+  <div class="album" id="album">
+    <div class="card"><img src="images/img1.jpeg"></div>
+    <div class="card"><img src="images/img2.jpeg"></div>
+    <div class="card"><img src="images/img3.jpeg"></div>
+    <div class="card"><img src="images/img4.jpeg"></div>
+    <div class="card"><img src="images/img5.jpeg"></div>
+    <div class="card"><img src="images/img6.jpeg"></div>
+    <div class="card"><img src="images/img7.jpeg"></div>
+    <div class="card"><img src="images/img8.jpeg"></div>
+  </div>
+
+ <div class="text-box">
+  <div class="counter" id="counter"></div>
+  <div class="caption" id="caption"></div>
+</div>
+
+
+  <div class="end">Bas itna hi tha… lekin man se 🧸💌</div>
+
+</div>
+
+<button class="next-btn" id="nextBtn" onclick="goNext()">
+  One last thing… 💌
+</button>
+
+<script>
+/* hearts */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerText="💗";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=6+Math.random()*4+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),10000);
+},600);
+
+/* captions */
+const captions=[
+"(It always starts with a smile)",
+"(Some moments just feel warm)",
+"(This one deserves a pause)",
+"(A little chaos, a lot of happiness)",
+"(Soft memories, loud hearts)",
+"(Radhe Radhe!!)",
+"(Naye saal pr bado ka aashirwad lena hota hai madam ji)",
+"(Still one of my favorites)"
+];
+
+const bgColors=[
+"linear-gradient(180deg,#ffe4ec,#fff7f2)",
+"linear-gradient(180deg,#ffe6f0,#fff1f8)",
+"linear-gradient(180deg,#ffedf4,#fff6fb)",
+"linear-gradient(180deg,#fff0f5,#fff9fc)",
+"linear-gradient(180deg,#ffe8f2,#fff5f9)",
+"linear-gradient(180deg,#ffeaf6,#fff7fb)",
+"linear-gradient(180deg,#ffe6f3,#fff8fc)",
+"linear-gradient(180deg,#ffe9f5,#fff9fd)"
+];
+
+let index=0;
+const cards=[...document.querySelectorAll(".card")];
+const captionBox=document.getElementById("caption");
+const counter=document.getElementById("counter");
+
+function openGift(){
+  document.querySelector(".gift").style.display="none";
+  document.querySelector(".tap").style.display="none";
+  document.getElementById("album").style.display="block";
+  updateText();
+}
+
+function updateText(){
+  counter.innerText=`Moment ${index+1} of ${captions.length}`;
+  captionBox.innerText=captions[index];
+  document.body.style.background=bgColors[index];
+}
+
+/* Swipe */
+let startX=0, currentX=0, activeCard=null, dragging=false;
+
+cards.forEach((card,i)=>{
+  card.addEventListener("mousedown",e=>{
+    if(i!==index) return;
+    activeCard=card;
+    startX=e.clientX;
+    dragging=true;
+    card.style.transition="none";
+  });
+
+  card.addEventListener("mousemove",e=>{
+    if(!dragging||activeCard!==card) return;
+    currentX=e.clientX;
+    const d=currentX-startX;
+    card.style.transform=`translateX(${d}px) rotate(${d/15}deg)`;
+  });
+
+  card.addEventListener("mouseup",finish);
+  card.addEventListener("mouseleave",finish);
+
+  card.addEventListener("touchstart",e=>{
+    if(i!==index) return;
+    activeCard=card;
+    startX=e.touches[0].clientX;
+    card.style.transition="none";
+  });
+
+  card.addEventListener("touchmove",e=>{
+    if(activeCard!==card) return;
+    currentX=e.touches[0].clientX;
+    const d=currentX-startX;
+    card.style.transform=`translateX(${d}px) rotate(${d/15}deg)`;
+  });
+
+  card.addEventListener("touchend",finish);
+});
+
+function finish(){
+  if(!activeCard) return;
+  dragging=false;
+  activeCard.style.transition="transform .4s ease, opacity .4s ease";
+  const d=currentX-startX;
+
+  if(d<-80){
+    activeCard.style.transform="translateX(-420px) rotate(-15deg)";
+    activeCard.style.opacity="0";
+    index++;
+    updateText();
+    if(index===cards.length-1){
+  setTimeout(()=>{
+    confetti(cards[index]);
+    showNextButton();
+  },300);
+}
+
+  }else{
+    activeCard.style.transform="translateX(0)";
+  }
+  activeCard=null;
+}
+
+/* Confetti */
+function confetti(card){
+  const colors=["#ff4d6d","#ffd166","#06d6a0","#4cc9f0","#c77dff","#ffb703"];
+  for(let i=0;i<90;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"%";
+    c.style.top="-20px";
+    c.style.background=colors[Math.floor(Math.random()*colors.length)];
+    c.style.animationDuration=2+Math.random()*2+"s";
+    card.appendChild(c);
+    setTimeout(()=>c.remove(),4000);
+  }
+}
+/* show next page button */
+function showNextButton(){
+  const btn=document.getElementById("nextBtn");
+  btn.classList.add("show-btn");
+  btn.style.opacity="1";
+}
+
+/* go to page 3 */
+function goNext(){
+  window.location.href="page3.html";
+}
+
+</script>
+
+</body>
+</html>

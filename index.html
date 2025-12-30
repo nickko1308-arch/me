@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy New Year 💗</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background:linear-gradient(180deg,#ffe4ec,#fff7f2);
+  overflow:hidden;
+  color:#5a3a3a;
+  text-align:center;
+}
+
+/* Falling hearts */
+.heart{
+  position:fixed;
+  top:-20px;
+  font-size:18px;
+  color:#ff9eb5;
+  animation:fall linear infinite;
+  opacity:0.7;
+}
+
+@keyframes fall{
+  to{transform:translateY(110vh);}
+}
+
+/* Page layout */
+.container{
+  padding:70px 20px;
+  animation:fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* Headings */
+h1{
+  font-family:'Pacifico',cursive;
+  font-size:3.3rem;
+  color:#ff7fa1;
+  text-shadow:0 0 12px rgba(255,180,200,.7);
+}
+
+.top-text{
+  margin-top:15px;
+  max-width:600px;
+  margin-inline:auto;
+  font-size:1.05rem;
+  color:#7a4a4a;
+}
+
+/* Teddy */
+.teddy-wrap{
+  margin-top:45px;
+}
+
+.teddy{
+  font-size:130px;
+  position:relative;
+  display:inline-block;
+}
+
+/* Eye blink */
+.eye{
+  position:absolute;
+  top:48px;
+  width:10px;
+  height:10px;
+  background:#5a3a3a;
+  border-radius:50%;
+  animation:blink 4s infinite;
+}
+
+.eye.left{left:48px;}
+.eye.right{right:48px;}
+
+@keyframes blink{
+  0%,90%,100%{transform:scaleY(1);}
+  92%,96%{transform:scaleY(0.1);}
+}
+
+/* Hand wave */
+.hand{
+  position:absolute;
+  right:-20px;
+  top:60px;
+  font-size:40px;
+  transform-origin:bottom left;
+  animation:wave 2.5s infinite;
+}
+
+@keyframes wave{
+  0%{transform:rotate(0deg);}
+  50%{transform:rotate(20deg);}
+  100%{transform:rotate(0deg);}
+}
+
+/* Button */
+.next-btn{
+  margin-top:25px;
+  padding:14px 32px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(135deg,#ff9eb5,#ffb7c7);
+  color:white;
+  font-size:1rem;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(255,150,180,.4);
+  transition:transform .2s;
+}
+
+.next-btn:hover{
+  transform:scale(1.05);
+}
+
+/* Small text */
+.small-text{
+  margin-top:25px;
+  font-size:.95rem;
+  color:#8a5a5a;
+  font-style:italic;
+}
+
+/* Footer glow */
+.glow{
+  margin-top:50px;
+  font-family:'Pacifico',cursive;
+  font-size:1.6rem;
+  color:#ff7fa1;
+  text-shadow:0 0 10px rgba(255,180,200,.7);
+}
+
+/* ===== MOBILE OPTIMIZATION ===== */
+@media (max-width: 600px){
+
+  body{
+    font-size: 16px;
+  }
+
+  .container{
+    width: 92%;
+    padding: 22px 18px;
+  }
+
+  .title{
+    font-size: 2.2rem;
+  }
+
+  .subtitle{
+    font-size: 1rem;
+  }
+
+  .message-box{
+    height: 300px;
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .signature{
+    font-size: 1.15rem;
+  }
+
+  .footer{
+    font-size: 0.85rem;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>Happy New Year Miss Madam Ji… 💗</h1>
+
+  <p class="top-text">
+    Naya saal thodi si muskaan, thodi si warmth,
+    aur bohot saari pyari moments le kar aaye —
+    bilkul aap jaise ✨
+  </p>
+
+  <div class="teddy-wrap">
+    <div class="teddy">
+      🧸
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="hand">🤍</div>
+    </div>
+
+    <br>
+
+    <!-- BUTTON TO PAGE 2 -->
+    <button class="next-btn" onclick="goPage2()">
+      Teddy ke saath aage chale? 🧸✨
+    </button>
+
+    <p class="small-text">
+      “Apka chote guru jii ki taraf se ye chota sa taufa” 💌
+    </p>
+  </div>
+
+  <div class="glow">
+    Soft wishes. Warm hugs. Pink dreams ✨
+  </div>
+
+</div>
+
+<script>
+function createHeart(){
+  const h=document.createElement("div");
+  h.classList.add("heart");
+  h.innerText="💗";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=6+Math.random()*4+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),10000);
+}
+setInterval(createHeart,500);
+
+function goPage2(){
+  window.location.href="page2.html";
+}
+</script>
+
+</body>
+</html>
